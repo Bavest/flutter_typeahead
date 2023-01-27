@@ -819,6 +819,19 @@ class _TypeAheadFieldState<T> extends State<TypeAheadField<T>>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final scrollableState = Scrollable.maybeOf(context);
+    if (scrollableState != null) {
+      // The TypeAheadField is inside a scrollable widget
+      _scrollPosition = scrollableState.position;
+
+      _scrollPosition!.removeListener(_scrollResizeListener);
+      _scrollPosition!.isScrollingNotifier.addListener(_scrollResizeListener);
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
