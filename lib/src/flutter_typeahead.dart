@@ -857,15 +857,18 @@ class _TypeAheadFieldState<T> extends State<TypeAheadField<T>>
         this._effectiveFocusNode;
 
     this._focusNodeListener = () {
-      if (_effectiveFocusNode!.hasFocus) {
-        this._suggestionsBox!.open();
-      } else if (!_areSuggestionsFocused) {
-        if (widget.hideSuggestionsOnKeyboardHide) {
-          this._suggestionsBox!.close();
+      Future<void>.delayed(const Duration(milliseconds: 110), () {
+        if (mounted) {
+          if (_effectiveFocusNode!.hasFocus) {
+            this._suggestionsBox!.open();
+          } else if (!_areSuggestionsFocused) {
+            if (widget.hideSuggestionsOnKeyboardHide) {
+              this._suggestionsBox!.close();
+            }
+          }
+          widget.onSuggestionsBoxToggle?.call(this._suggestionsBox!.isOpened);
         }
-      }
-
-      widget.onSuggestionsBoxToggle?.call(this._suggestionsBox!.isOpened);
+      });
     };
 
     this._effectiveFocusNode!.addListener(_focusNodeListener);
