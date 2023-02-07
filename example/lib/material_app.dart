@@ -10,8 +10,7 @@ class MyMaterialApp extends StatelessWidget {
     return MaterialApp(
       title: 'flutter_typeahead demo',
       scrollBehavior: MaterialScrollBehavior().copyWith(
-        dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch}
-      ),
+          dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch}),
       home: MyHomePage(),
     );
   }
